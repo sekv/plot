@@ -40,8 +40,12 @@ def roc(data,TP,FP,TN,FN,TPR,FPR,vmin,vmax):
         FPR[k] = FP[k]*1.0/(FP[k]+TN[k])
         k = k+1
 
-data = np.loadtxt('label.txt')
-data1 = np.loadtxt('label1.txt')
+
+fname = ['10_20_50','5_30_100','10_20_100','10_30_50']
+dir = 'label/'
+
+data = np.loadtxt(dir+fname[0]+'.txt')
+data1 = np.loadtxt(dir+fname[1]+'.txt')
 
 vmin = np.ndarray.min(data)
 vmax = np.ndarray.max(data)
@@ -65,17 +69,17 @@ FPR1 =[1]*(vmax1-vmin1)
 roc(data,TP,FP,TN,FN,TPR,FPR,vmin,vmax)
 roc(data1,TP1,FP1,TN1,FN1,TPR1,FPR1,vmin1,vmax1)
 
-FSIZE = 25
-plt.figure(figsize=(10,8),frameon=True)
-matplotlib.rc('xtick', labelsize=FSIZE)
+FSIZE = 45
+plt.figure(figsize=(14,12),frameon=True)
+matplotlib.rc('xtick', labelsize=FSIZE-5)
 matplotlib.rc('ytick',labelsize=FSIZE)
 
-plt.plot(FPR,TPR, 'ro--',label='vrouter',lw=3,markersize=10)
-plt.plot(FPR1,TPR1, 'ys-',label='vfirewall',lw=3,markersize=10)
-plt.ylim(0.6,1)
-plt.xlim(0,0.2)
+plt.plot(FPR,TPR,'yx-',label='ANSP',lw=8,markersize=30)
+plt.plot(FPR1,TPR1,'k.-',label='ACRU',lw=8,markersize=30)
+plt.ylim(0.4,1)
+plt.xlim(0,0.4)
 plt.xlabel('FPR',fontsize=FSIZE)
 plt.ylabel('TPR',fontsize=FSIZE)
 plt.legend(loc='lower right',numpoints=1,fontsize=FSIZE)
 plt.show()
-plt.savefig("roc.png")
+plt.savefig(dir+"routerroc.png")

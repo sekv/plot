@@ -12,8 +12,8 @@ import sys
 cluster_num = [5,10,15,20,25]
 component_num = [10,20,30]
 window_num = [20, 50, 100,200]
-dir = 'c2pro/'
-dirpic = 'c2pro_distlog/'
+dir = 'c1/'
+dirpic = 'c1_distlog/'
 
 for a in cluster_num:
 	for b in component_num:
@@ -22,6 +22,8 @@ for a in cluster_num:
 			XNUM = 60
 			data = np.loadtxt(dir+str(a)+'_'+str(b)+'_'+str(c)+'_'+'train_result.txt')
 			data1 = np.loadtxt(dir+str(a)+'_'+str(b)+'_'+str(c)+'_'+'test_result.txt')
+			data = data[1500:1700]
+			data1 = data1[1500:1700]
 			vmin1 = np.ndarray.min(data)
 			vmin2 = np.ndarray.min(data1)
 			vmax1 = np.ndarray.max(data)
@@ -67,12 +69,12 @@ for a in cluster_num:
 			    distPtrain[i] = dist[i]*1.0/data.size
 			    distPtest[i] = dist1[i]*1.0/data1.size
 
-			FSIZE = 25
-			plt.figure(figsize=(10,8),frameon=True)
-			matplotlib.rc('xtick', labelsize=FSIZE)
+			FSIZE = 45
+			plt.figure(figsize=(16.5,12.5),frameon=True)
+			matplotlib.rc('xtick', labelsize=FSIZE-5)
 			matplotlib.rc('ytick',labelsize=FSIZE)
-			plt.plot(seg,distPtrain,'ro--',label='train',lw=7,markersize=15)
-			plt.plot(seg,distPtest,'ys-',label='test',lw=5,markersize=15)
+			plt.plot(seg,distPtrain,'yx-',label='train',lw=7,markersize=30)
+			plt.plot(seg,distPtest,'k.--',label='test',lw=5,markersize=30)
 			plt.xlabel('Log Likelihood',fontsize=FSIZE)
 			plt.ylabel('Probability',fontsize=FSIZE)
 			plt.legend(loc='upper left',numpoints=1,fontsize=FSIZE)
